@@ -8,6 +8,13 @@
       "when": 1794243937532,
       "tag": "0000_slimy_the_spike",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794320577564,
+      "tag": "0001_smooth_outlaw_kid",
+      "breakpoints": true
     }
   ]
 }

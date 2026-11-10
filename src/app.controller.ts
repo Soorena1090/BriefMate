@@ -7,6 +7,12 @@ export class AppController {
   ) {}
 
 
+  @Get('database-check')
+  checkDatabase() {
+    return this.databaseService.checkDatabase();
+  }
+
+
   @Get('health')
   getHealth() {
     return {

@@ -11,7 +11,11 @@ export const users = pgTable('users', {
         length:255,
     }).notNull(),
 
-    createdAt: timestamp('craeted_at', {
+    createdAt: timestamp('created_at', {
         withTimezone: true,
     }).defaultNow().notNull(),
 });
+
+export const schema = {
+    users,
+};
