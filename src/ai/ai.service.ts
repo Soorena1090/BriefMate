@@ -18,4 +18,14 @@ export class AiService {
             userPrompt,
         );
     }
+
+    async generateJson(
+        systemPrompt: string,
+        userPrompt: string,
+    ): Promise<string> {
+        return this.aiProvider.generateJson(
+            systemPrompt,
+            userPrompt,
+        );
+    }
 }

@@ -1,4 +1,4 @@
-import { index, pgTable, text, timestamp, uniqueIndex, uuid, varchar } from "drizzle-orm/pg-core";
+import { index, pgTable, text, timestamp, uniqueIndex, uuid, varchar, jsonb,  } from "drizzle-orm/pg-core";
 
 export const users = pgTable('users', {
     id: uuid('id').defaultRandom().primaryKey(),
@@ -46,8 +46,28 @@ export const briefs = pgTable(
     ],
 );
 
+
+export const analyses = pgTable(
+    'analyses',
+    {
+        id: uuid('id').defaultRandom().primaryKey(),
+        projectId: uuid('project_id').notNull().references(() => projects.id, { onDelete: 'cascade' }),
+        briefId: uuid('brief_id').notNull().references(() => briefs.id, { onDelete: 'cascade' }),
+        summary: text('summary').notNull(),
+        requirements: jsonb('requirements').notNull(),
+        questions: jsonb('questions').notNull(),
+        model: varchar('model', { length: 100 }).notNull(),
+        createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    },
+    (table) => [
+        index('analyses_project_id_idx').on(table.projectId),
+        index('analyses_brief_id_idx').on(table.briefId),
+    ]
+);
+
 export const schema = {
     users,
     projects,
     briefs,
+    analyses,
 };

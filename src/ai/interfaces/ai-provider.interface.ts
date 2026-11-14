@@ -3,4 +3,9 @@ export interface AIProvider {
         systemPrompt: string,
         userPrompt: string,
     ): Promise<string>;
+
+    generateJson(
+        systemPrompt: string,
+        userPrompt: string,
+    ): Promise<string>;
 }
