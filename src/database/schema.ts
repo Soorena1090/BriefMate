@@ -1,4 +1,4 @@
-import { index, pgTable, text, timestamp, uniqueIndex, uuid, varchar, jsonb,  } from "drizzle-orm/pg-core";
+import { index, pgTable, text, timestamp, uniqueIndex, uuid, varchar, jsonb  } from "drizzle-orm/pg-core";
 
 export const users = pgTable('users', {
     id: uuid('id').defaultRandom().primaryKey(),
@@ -65,9 +65,60 @@ export const analyses = pgTable(
     ]
 );
 
+export const projectPlans = pgTable(
+    'project_plans',
+    {
+        id: uuid('id').defaultRandom().primaryKey(),
+        projectId: uuid('project_id').notNull().references(() => projects.id, { onDelete: 'cascade' }),
+        analysesId: uuid('analysis_id').notNull().references(() => analyses.id, { onDelete: 'cascade' }),
+        title: varchar('title', { length: 200 }).notNull(),
+        overview: text('overview').notNull(),
+        phases: jsonb('phases').notNull(),
+        deliverables: jsonb('deliverables').notNull(),
+        assumptions: jsonb('assumptions').notNull(),
+        risks: jsonb('risks').notNull(),
+
+        model: varchar('model', { length: 100 }).notNull(),
+        createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    },
+    (table) => [
+        index('project_plans_project_id_idx').on(table.projectId),
+        index('project_plans_analysis_id_idx').on(table.analysesId),
+    ],
+);
+
+export const proposals = pgTable(
+    'proposals',
+    {
+        id: uuid('id').defaultRandom().primaryKey(),
+
+        projectId: uuid('project_id').notNull().references(() => projects.id, { onDelete: 'cascade' }),
+        analysesId: uuid('analysis_id').notNull().references(() => analyses.id, { onDelete: 'cascade' }),
+        title: varchar('title', { length: 200 }).notNull(),
+        introduction: text('introduction').notNull(),
+        projectUnderstanding: text('project_understanding').notNull(),
+        scopeIn: jsonb('scope_in').notNull(),
+        scopeOut: jsonb('scope_out').notNull(),
+        deliverables: jsonb('deliverables').notNull(),
+        timeline: jsonb('timeline').notNull(),
+
+        assumptions: jsonb('assumptions').notNull(),
+
+        model: varchar('model', { length: 100 }).notNull(),
+
+        createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    },
+    (table) => [
+        index('proposals_project_id_idx').on(table.projectId),
+        index('proposals_analysis_id_idx').on(table.analysesId),
+    ],
+);
+
 export const schema = {
     users,
     projects,
     briefs,
     analyses,
+    projectPlans,
+    proposals,
 };

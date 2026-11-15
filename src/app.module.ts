@@ -11,6 +11,9 @@ import { BriefsModule } from './briefs/briefs.module.js';
 import { AnalysesModule } from './analyses/analyses.module.js';
 import { ProposalsModule } from './proposals/proposals.module.js';
 import { AiModule } from './ai/ai.module.js';
+import { ProjectPlansService } from './project-plans/project-plans.service.js';
+import { ProjectPlansController } from './project-plans/project-plans.controller.js';
+import { ProjectPlansModule } from './project-plans/project-plans.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -27,8 +30,9 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
    AnalysesModule,
    ProposalsModule,
    AiModule,
+   ProjectPlansModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ProjectPlansController],
+  providers: [AppService, ProjectPlansService],
 })
 export class AppModule {}
