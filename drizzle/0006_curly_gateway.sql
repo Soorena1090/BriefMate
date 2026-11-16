@@ -1,0 +1,2 @@
+ALTER TABLE "proposals" ADD COLUMN "project_plan_id" uuid;--> statement-breakpoint
+ALTER TABLE "proposals" ADD CONSTRAINT "proposals_project_plan_id_project_plans_id_fk" FOREIGN KEY ("project_plan_id") REFERENCES "public"."project_plans"("id") ON DELETE set null ON UPDATE no action;

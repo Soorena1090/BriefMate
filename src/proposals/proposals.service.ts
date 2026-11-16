@@ -119,6 +119,7 @@ export class ProposalsService {
         .values({
           projectId,
           analysesId: analysis.id,
+          projectPlanId: plan.id,
           title: result.title,
           introduction: result.introduction,
           projectUnderstanding: result.projectUnderstanding,

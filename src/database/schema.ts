@@ -93,6 +93,7 @@ export const proposals = pgTable(
         id: uuid('id').defaultRandom().primaryKey(),
 
         projectId: uuid('project_id').notNull().references(() => projects.id, { onDelete: 'cascade' }),
+        projectPlanId: uuid('project_plan_id').references(() => projectPlans.id, { onDelete: 'set null' }),
         analysesId: uuid('analysis_id').notNull().references(() => analyses.id, { onDelete: 'cascade' }),
         title: varchar('title', { length: 200 }).notNull(),
         introduction: text('introduction').notNull(),
