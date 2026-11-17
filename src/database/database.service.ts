@@ -19,7 +19,7 @@ export class DatabaseService implements OnModuleDestroy {
         const result: any = await this.pool.query(
             'SELECT NOW() AS now',
         );
-        return result.row[0];
+        return result.rows[0];
     }
 
     async onModuleDestroy() {
